@@ -1,5 +1,3 @@
-# ACC preparation
-
 Python code for branch recovery from finite position histories on
 self-intersecting polynomial curves. The speed profile is unknown; its
 parameter rate and the coordinate measurement errors have known bounds.
