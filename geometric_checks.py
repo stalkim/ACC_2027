@@ -21,7 +21,7 @@ from monotone_history import CHARTS
 import straight_history as straight
 
 METHODS = ('DC', 'MI', 'DMI')
-REVIEW = dict(times=['-0.005', '-0.0025', '0.005'], positions=[
+INFORMATIVE_EXAMPLE = dict(times=['-0.005', '-0.0025', '0.005'], positions=[
     ['0.000025', '-0.0049875624375', '0'],
     ['-0.01579375', '-0.00298751405859375', '0'],
     ['0.000025', '0.0050125625625', '0']], linf_errors=['0.012']*3)
@@ -37,7 +37,8 @@ def endpoints(raw):
 
 
 def informative_cases():
-    cases = [('review', REVIEW, tuple(F(1)+F(t) for t in REVIEW['times']))]
+    cases = [('informative-example', INFORMATIVE_EXAMPLE,
+              tuple(F(1)+F(t) for t in INFORMATIVE_EXAMPLE['times']))]
     for middle, shift in product((F(-3, 1000), F(-1, 400), F(-1, 500)),
                                  (F(-1, 5000), F(0), F(1, 5000))):
         times = (F(-1, 200), middle, F(1, 200))
@@ -60,7 +61,8 @@ def informative_cases():
 
 def densified(count):
     # Keep all original observations; add noiseless samples of q=1+t.
-    rows = {F(t): tuple(map(F, p)) for t, p in zip(REVIEW['times'], REVIEW['positions'])}
+    rows = {F(t): tuple(map(F, p))
+            for t, p in zip(INFORMATIVE_EXAMPLE['times'], INFORMATIVE_EXAMPLE['positions'])}
     needed = count-len(rows)
     for j in range(1, needed+2):
         if len(rows) == count:
@@ -149,8 +151,8 @@ def run(output, protocol=None):
     source = Path(__file__).resolve().parent
     snapshot = output/'source'
     snapshot.mkdir()
-    for name in ('review_checks.py', 'straight_history.py', 'extension_history.py',
-                 'monotone_history.py', 'test_review_checks.py'):
+    for name in ('geometric_checks.py', 'straight_history.py', 'extension_history.py',
+                 'monotone_history.py', 'test_geometric_checks.py'):
         shutil.copy2(source/name, snapshot/name)
     if protocol is not None:
         shutil.copy2(protocol, snapshot/'protocol.md')

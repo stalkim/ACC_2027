@@ -35,7 +35,7 @@ to a decoder.
 ### Geometric boundary and informative histories
 
 ```bash
-python3 review_checks.py --output results/geometric-01 --protocol README.md
+python3 geometric_checks.py --output results/geometric-01 --protocol README.md
 ```
 
 This command covers the straight-branch threshold, the curved sufficient rule,
@@ -192,7 +192,7 @@ for inclusion in their branch's outer bound.
 | [straight_history.py](straight_history.py) | Line/Euclidean-ball preimages, rational square-root bounds, and history certificates |
 | [monotone_history.py](monotone_history.py) | Rational inverse bounds, interval propagation, and cubic-path decoder |
 | [extension_history.py](extension_history.py) | Quartic/quintic paths and the DC, MI, DMI methods |
-| [review_checks.py](review_checks.py) | Straight boundary, circular-arc bounds, informative histories, scaling, and no-pruning timings |
+| [geometric_checks.py](geometric_checks.py) | Straight boundary, circular-arc bounds, informative histories, scaling, and no-pruning timings |
 | [benchmark.py](benchmark.py) | Deterministic 60-history polynomial generation, validation, and timing |
 | [check_precision.py](check_precision.py) | Positive-margin precision check on generated nominal histories |
 | [demo.py](demo.py) | Three small cubic-path examples |

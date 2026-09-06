@@ -5,10 +5,10 @@ import unittest
 from extension_history import decode, pairwise
 from monotone_history import forward
 import straight_history as straight
-from review_checks import REVIEW, endpoints, curvature_rows, densified
+from geometric_checks import INFORMATIVE_EXAMPLE, endpoints, curvature_rows, densified
 
 
-class ReviewTests(unittest.TestCase):
+class GeometricChecksTests(unittest.TestCase):
     def test_exact_sqrt(self):
         for q in (F(0), F(1, 3), F(7, 13), F(19, 7)):
             self.assertEqual(straight.sqrt_bracket(q*q), (q, q))
@@ -37,9 +37,10 @@ class ReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             straight.sqrt_bracket(F(-1))
 
-    def test_review_example(self):
+    def test_informative_example(self):
         for method in ('DC', 'MI', 'DMI'):
-            for raw, status in ((endpoints(REVIEW), 'AMBIGUOUS'), (REVIEW, 'UNIQUE')):
+            for raw, status in ((endpoints(INFORMATIVE_EXAMPLE), 'AMBIGUOUS'),
+                                (INFORMATIVE_EXAMPLE, 'UNIQUE')):
                 result = decode(raw, 'quartic', '1/2', method)
                 self.assertEqual(result['status'], status)
                 self.assertEqual(result['pruned'], 0)
@@ -48,7 +49,7 @@ class ReviewTests(unittest.TestCase):
         for n in (3, 9, 33):
             raw = densified(n)
             self.assertEqual(len(raw['times']), n)
-            for t, y in zip(REVIEW['times'], REVIEW['positions']):
+            for t, y in zip(INFORMATIVE_EXAMPLE['times'], INFORMATIVE_EXAMPLE['positions']):
                 index = raw['times'].index(F(t))
                 self.assertEqual(raw['positions'][index], tuple(map(F, y)))
 
